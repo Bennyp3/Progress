@@ -44,4 +44,5 @@ class Student:
                 raise ValueError("Invalid University")
             self._university = value
 
-    
+    def __str__(self):
+        return f"{self.name}, {self.major}, {self.university}, {self.compute_letter_grade()}"
