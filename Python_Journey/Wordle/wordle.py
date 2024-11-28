@@ -41,17 +41,27 @@ def main():
 
     correct_word = get_random_word() # gets a random word and sets it as the correct word
     print(correct_word)
-    my_guess = "five"
+    my_guess = ""
     count = 0
     while my_guess != correct_word and count < 5 :
-       # print(grid)
+        print(grid)
+        for row in grid:
+            print(' '.join(row))
+
         my_guess = get_guess()
+
         if len(my_guess) == 5:
-            count+=1
-            if my_guess == correct_word:
-                print("NICE")
+            if check_guess(my_guess,correct_word):
+                grid[count] = list(my_guess)
+                print("You got it!")
+                for row in grid:
+                    print(' '.join(row))
+                break
             else:
-                print("nope try again")
+                grid[count] = list(my_guess)
+                count+=1 # this is needed to have the program only run 5 times - used in while loop
+                print("You need to try again")
+          
         else:
             print("Length of Guess needs to be 5 letters long")
     if my_guess != correct_word:
