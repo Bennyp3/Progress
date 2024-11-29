@@ -1,10 +1,12 @@
 import random
 import string
+from letters import Letter
 #from guesses import Guess
 
 
 grid = [['-']*5 for i in range(5)] # prints out a grid that I plan to use for the words
 alphabet = string.ascii_lowercase
+alphabet_letters = [Letter(i) for i in alphabet]
 line_length = 6
 alphabet_lines = []
 
@@ -47,9 +49,8 @@ def correct_loc(my_guess, correct):
 
 def print_alphabet():
     
-
-    for i in range(0,len(alphabet), line_length):
-        alphabet_lines.append(alphabet[i:i+line_length])
+    for i in range(0,len(alphabet_letters), line_length):
+        alphabet_lines.append(alphabet_letters[i:i+line_length])
 
     return alphabet_lines
 
@@ -61,6 +62,11 @@ def print_grid_and_alphabet():
 
         alphabet_row = alphabet_lines[i] if i < len(alphabet_lines) else ""
         print(f"{grid_row}    {''.join(alphabet_row)}")
+
+
+
+        
+
 
 
   
@@ -100,6 +106,7 @@ def main():
                 count+=1 # this is needed to have the program only run 5 times - used in while loop
                 check_letters(my_guess, correct_word)
                 correct_loc(my_guess, correct_word)
+                
                 print("You need to try again")
           
         else:
