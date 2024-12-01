@@ -9,12 +9,20 @@ guess_grid = [["-"]*5 for _ in range(5)] # creates 5x5 grid for the guesses
 
 alpha_grid = [[' ']*6 for _ in range(5)]
 
-index = 0
-for row in range(5):
-    for col in range(6):
-        if index < len(alpha_objects):
-            alpha_grid[row][col] = str(alpha_objects[index])
-            index += 1
+
+def altar_obj_colors(guess, correct):
+    common_letters = set(guess).intersection(set(correct))
+    for i in range(26):
+        if alpha_objects[i].get_letter() in common_letters: # common_letters is a set of letters
+            alpha_objects[i].set_color("\033[36m")
+
+def create_alpha_grid(): # you need to altar the colors of the objects before you create the grid
+    index = 0
+    for row in range(5):
+        for col in range(6):
+            if index < len(alpha_objects):
+                alpha_grid[row][col] = str(alpha_objects[index]) # you need to cast each individual object in the grid as a string
+                index += 1
 
 def get_guess():
     guess = input("Guess:").lower()
@@ -57,9 +65,12 @@ def main():
      my_guess = ""
      correct_word = get_random_word()
      count = 0
-     
+     print(correct_word)
+     #alpha_objects[3].set_color("\033[36m")
      
      while my_guess != correct_word:
+        altar_obj_colors(my_guess,correct_word)
+        create_alpha_grid()
         #print_guess_grid()
         print_grids()
         my_guess = get_guess()
