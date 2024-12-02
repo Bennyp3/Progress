@@ -10,9 +10,6 @@ guess_grid = [["-"]*5 for _ in range(5)] # creates 5x5 grid for the guesses
 alpha_grid = [[' ']*6 for _ in range(5)]
 
 
-
-
-
 def altar_obj_colors(guess, correct):
     common_letters = set(guess).intersection(set(correct))
     # for i in range(26):
@@ -26,7 +23,7 @@ def altar_obj_colors(guess, correct):
             elif guess[i] in common_letters:
                 for x in range(26):
                     if alpha_objects[x].get_letter() == guess[i]:
-                        alpha_objects[x].set_color("\033[33m")
+                        alpha_objects[x].set_color("\033[36m")
             else:
                 if guess[i] != common_letters:
                     for x in range(26):
@@ -90,14 +87,17 @@ def main():
     correct_word = get_random_word()
     count = 0
      #print(correct_word)
-    print("RULES TO THE GAME:\n 1. Try to guess the five letter word\n 2. The word has 5 unique letters\n 3. You have 5 trys\n 4. Letters in green are in the correct spot in the word\n 5. Letters in yellow are in the word but not in the correct spot\n 6. Letters in red are not in the word at all")
+    print("RULES TO THE GAME:\n 1. Try to guess the five letter word\n 2. The word has 5 unique letters\n 3. You have 5 trys\n 4. Letters in green are in the correct spot in the word\n 5. Letters in blue are in the word but not in the correct spot\n 6. Letters in red are not in the word at all")
      
     while my_guess != correct_word and count < 5:
-        if len(my_guess) ==5:
+        #if len(my_guess) ==5:
+        try:
             altar_obj_colors(my_guess,correct_word)
             create_alpha_grid()
-            #print_guess_grid()
+        #print_guess_grid()
             print_grids()
+        except IndexError:
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         my_guess = get_guess()
         if len(my_guess) == 5:
             if check_guess(my_guess, correct_word):
