@@ -121,6 +121,8 @@ def main():
         print_grids()
         print(f"You got it! The word was {correct_word}")
     else:
+        altar_obj_colors(my_guess, correct_word)
+        print_grids()
         print(f"YIKES! The correct word was {correct_word}")
 
             
