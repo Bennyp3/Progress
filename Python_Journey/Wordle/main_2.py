@@ -15,6 +15,8 @@ def altar_obj_colors(guess, correct):
     # for i in range(26):
     #     if alpha_objects[i].get_letter() in common_letters: # common_letters is a set of letters
     #         alpha_objects[i].set_color("\033[36m")
+    if len(guess) != 5:
+        raise Exception()
     for i in range(5):
             if guess[i] in common_letters and guess[i] == correct[i]:
                 for x in range(26):
@@ -23,7 +25,7 @@ def altar_obj_colors(guess, correct):
             elif guess[i] in common_letters:
                 for x in range(26):
                     if alpha_objects[x].get_letter() == guess[i]:
-                        alpha_objects[x].set_color("\033[36m")
+                        alpha_objects[x].set_color("\033[34m")
             else:
                 if guess[i] != common_letters:
                     for x in range(26):
@@ -86,11 +88,13 @@ def main():
     my_guess = "     "
     correct_word = get_random_word()
     count = 0
-     #print(correct_word)
+    print(correct_word)
     print("RULES TO THE GAME:\n 1. Try to guess the five letter word\n 2. The word has 5 unique letters\n 3. You have 5 trys\n 4. Letters in green are in the correct spot in the word\n 5. Letters in blue are in the word but not in the correct spot\n 6. Letters in red are not in the word at all")
      
     while my_guess != correct_word and count < 5:
-        #if len(my_guess) ==5:
+        # if len(my_guess) !=5:
+        #     raise Exception("No words that aren't 5 letters long!")
+
         try:
             altar_obj_colors(my_guess,correct_word)
             create_alpha_grid()
@@ -98,7 +102,10 @@ def main():
             print_grids()
         except IndexError:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        except Exception:
+            print("Guess must be 5 letters long!")
         my_guess = get_guess()
+    
         if len(my_guess) == 5:
             if check_guess(my_guess, correct_word):
                 guess_grid[count] = list(my_guess)
@@ -107,11 +114,11 @@ def main():
                 guess_grid[count] = list(my_guess)
                 count +=1
                 print("please try again")
-
-    
-        else:
-            print ("Your guess needs to be 5 letters long")
+        # else:
+        #     print ("Your guess needs to be 5 letters long")
     if my_guess == correct_word:
+        altar_obj_colors(my_guess,correct_word)
+        print_grids()
         print(f"You got it! The word was {correct_word}")
     else:
         print(f"YIKES! The correct word was {correct_word}")
